@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
+import * as request from './service/RestApi.js';
 
 class App extends Component {
   constructor(){
