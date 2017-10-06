@@ -1,16 +1,42 @@
 import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
-import * as request from './service/RestApi.js';
+import * as api from './service/RestApi.js';
 
 class App extends Component {
-  constructor(){
-    super();
-    this.state = {authorList : [
-      {name: "Bruno", email:"am.bruno@live.com", pass: "1111111"},
-      {name: "Bruno Martins", email:"am.bruno@live.com", pass: "1111111"}
-    ]};
+  constructor(props){
+    super(props);
+    this.state = {
+      authorList : [],
+      nome : "",
+      email : "",
+      pass : ""
+  };
+
+    this.getAll = this.getAll.bind(this);
+
+    this.getAll();
   }
+
+  async setAuthor (){
+
+  }
+  
+  async getAll (){
+    const getAllRegister = await api.getAuthor();
+    const arr = [];
+    let result;
+
+    if (getAllRegister.status == 200){
+      result = getAllRegister.data.results
+      result.forEach((item) => {
+        arr.push(item)
+      });
+        this.setState({authorList : arr});
+        console.log(this.state);
+    }
+  }
+
   render() {
     const componentHTML =      
           <div id="layout">   
@@ -66,7 +92,7 @@ class App extends Component {
                         </thead>
                         <tbody>
                           {
-                            this.state.authorList.map((author) => {
+                            this.state.authorList.map((author, index) => {                            
                               return(
                                 <tr>
                                   <td>{author.name}</td>

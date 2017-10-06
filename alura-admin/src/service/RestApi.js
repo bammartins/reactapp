@@ -22,13 +22,8 @@ export function setAuthor (name, email, pass){
 }
 
 export function getAuthor (){
-   let response = axios.get(
+    const authorResponse = axios.get(
                     `${BASE_URL}${AUTHOR_ENDPOINT}`
-                    ).then((r) => {
-                         for(let i = 0; i < r.data.results.length; i++){
-                            console.log(r.data.results);
-                        }
-                    });
-    
-    return response;
+                    );
+    return authorResponse;
 }
