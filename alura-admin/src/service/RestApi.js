@@ -12,13 +12,12 @@ axios.defaults.headers = {
  
 
 export function setAuthor (name, email, pass){
-    axios.post(`${BASE_URL}${AUTHOR_ENDPOINT}`, {
-        name: name,
-        email: email,
-        password: pass        
-    }).then((response) => {
-        console.log(response);
-    });
+    const authorSet = axios.post(`${BASE_URL}${AUTHOR_ENDPOINT}`, {
+                    name: name,
+                    email: email,
+                    password: pass        
+                });
+    return authorSet;
 }
 
 export function getAuthor (){

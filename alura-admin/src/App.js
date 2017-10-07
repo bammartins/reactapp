@@ -8,26 +8,37 @@ class App extends Component {
     super(props);
     this.state = {
       authorList : [],
-      nome : "",
-      email : "",
-      pass : ""
+      value: '',
+      nome : '',
+      email : '',
+      pass : ''
   };
 
     this.getAll = this.getAll.bind(this);
+    this.setAuthor = this.setAuthor.bind(this);
 
     this.getAll();
   }
 
-  async setAuthor (){
-
+  handleChange(fieldName) {
+      return function (event){
+          this.setState({[fieldName]: event.target.value});        
+      }
   }
-  
+
+  async setAuthor (e){
+    e.preventDefault();
+    const setResponse = await api.setAuthor(this.state.nome, this.state.email, this.state.pass);
+        if(setResponse.status === 201){
+          this.getAll();
+        }
+  }
   async getAll (){
     const getAllRegister = await api.getAuthor();
     const arr = [];
     let result;
 
-    if (getAllRegister.status == 200){
+    if (getAllRegister.status === 200){
       result = getAllRegister.data.results
       result.forEach((item) => {
         arr.push(item)
@@ -46,12 +57,12 @@ class App extends Component {
 
               <div id="menu">
                   <div className="pure-menu">
-                      <a className="pure-menu-heading" href="#">React</a>
+                      <a className="pure-menu-heading" href="javascript:void(0)">React</a>
 
                       <ul className="pure-menu-list">
-                          <li className="pure-menu-item"><a href="#" className="pure-menu-link">Home</a></li>
-                          <li className="pure-menu-item"><a href="#" className="pure-menu-link">Autores</a></li>
-                          <li className="pure-menu-item"><a href="#" className="pure-menu-link">Livros</a></li>
+                          <li className="pure-menu-item"><a href="javascript:void(0)" className="pure-menu-link">Home</a></li>
+                          <li className="pure-menu-item"><a href="javascript:void(0)" className="pure-menu-link">Autores</a></li>
+                          <li className="pure-menu-item"><a href="javascript:void(0)" className="pure-menu-link">Livros</a></li>
                       </ul>
                   </div>
               </div>
@@ -65,19 +76,19 @@ class App extends Component {
                       <form className="pure-form pure-form-aligned">
                         <div className="pure-control-group">
                           <label htmlFor="nome">Nome</label> 
-                          <input id="nome" type="text" name="nome" value=""  />                  
+                          <input id="nome" type="text" value={this.state.nome} onChange={this.handleChange('nome').bind(this)} />
                         </div>
                         <div className="pure-control-group">
                           <label htmlFor="email">Email</label> 
-                          <input id="email" type="email" name="email" value=""  />                  
+                          <input id="email" type="email" value={this.state.email} onChange={this.handleChange('email').bind(this)}/>
                         </div>
                         <div className="pure-control-group">
                           <label htmlFor="senha">Senha</label> 
-                          <input id="senha" type="password" name="senha"  />                                      
+                          <input id="senha" type="password" name="senha"  value={this.state.pass} onChange={this.handleChange('pass').bind(this)}/>
                         </div>
                         <div className="pure-control-group">                                  
                           <label></label> 
-                          <button type="submit" className="pure-button pure-button-primary">Gravar</button>                                    
+                          <input type="submit" className="pure-button pure-button-primary" onClick={this.setAuthor} value="Cadastrar"/> 
                         </div>
                       </form>             
 
@@ -94,7 +105,7 @@ class App extends Component {
                           {
                             this.state.authorList.map((author, index) => {                            
                               return(
-                                <tr>
+                                <tr key={index}>
                                   <td>{author.name}</td>
                                   <td>{author.email}</td>
                                 </tr>
