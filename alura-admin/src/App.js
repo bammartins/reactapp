@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
 import * as api from './service/RestApi.js';
+import Input from './components/forms/input.js';
+import Submit from './components/forms/submit.js';
 
 class App extends Component {
   constructor(props){
@@ -40,11 +42,11 @@ class App extends Component {
 
     if (getAllRegister.status === 200){
       result = getAllRegister.data.results
+      console.log(result);
       result.forEach((item) => {
         arr.push(item)
       });
         this.setState({authorList : arr});
-        console.log(this.state);
     }
   }
 
@@ -72,27 +74,16 @@ class App extends Component {
                     <h1>Cadastro de Autores</h1>
                   </div>
                   <div className="content" id="content">
+                    
                     <div className="pure-form pure-form-aligned">
                       <form className="pure-form pure-form-aligned">
-                        <div className="pure-control-group">
-                          <label htmlFor="nome">Nome</label> 
-                          <input id="nome" type="text" value={this.state.nome} onChange={this.handleChange('nome').bind(this)} />
-                        </div>
-                        <div className="pure-control-group">
-                          <label htmlFor="email">Email</label> 
-                          <input id="email" type="email" value={this.state.email} onChange={this.handleChange('email').bind(this)}/>
-                        </div>
-                        <div className="pure-control-group">
-                          <label htmlFor="senha">Senha</label> 
-                          <input id="senha" type="password" name="senha"  value={this.state.pass} onChange={this.handleChange('pass').bind(this)}/>
-                        </div>
-                        <div className="pure-control-group">                                  
-                          <label></label> 
-                          <input type="submit" className="pure-button pure-button-primary" onClick={this.setAuthor} value="Cadastrar"/> 
-                        </div>
-                      </form>             
+                          <Input name="nome" label="Nome" id="nome" type="text" value={this.state.nome} onChange={this.handleChange('nome').bind(this)}/>
+                          <Input name="email" label="Email" id="email" type="email" value={this.state.email} onChange={this.handleChange('email').bind(this)}/>
+                          <Input name="senha" label="Senha" id="senha" type="password" value={this.state.pass} onChange={this.handleChange('pass').bind(this)}/>
+                          <Submit className="pure-button pure-button-primary" onClick={this.setAuthor} value="Cadastrar"/>
+                      </form> 
+                    </div> 
 
-                    </div>  
                     <div>            
                       <table className="pure-table">
                         <thead>
@@ -103,9 +94,9 @@ class App extends Component {
                         </thead>
                         <tbody>
                           {
-                            this.state.authorList.map((author, index) => {                            
+                            this.state.authorList.map((author) => {                            
                               return(
-                                <tr key={index}>
+                                <tr key={author.objectId}>
                                   <td>{author.name}</td>
                                   <td>{author.email}</td>
                                 </tr>
