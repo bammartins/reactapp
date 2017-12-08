@@ -39,38 +39,6 @@ class App extends Component {
                     <RegisterForm/>
                     <ListTable/>
 
-                    {/*<div className="pure-form pure-form-aligned">
-                      <form className="pure-form pure-form-aligned">
-                          <Input name="nome" label="Nome" id="nome" type="text" value={this.state.nome} onChange={this.handleChange('nome').bind(this)}/>
-                          <Input name="email" label="Email" id="email" type="email" value={this.state.email} onChange={this.handleChange('email').bind(this)}/>
-                          <Input name="senha" label="Senha" id="senha" type="password" value={this.state.pass} onChange={this.handleChange('pass').bind(this)}/>
-                          <Submit className="pure-button pure-button-primary" onClick={this.setAuthor} value="Cadastrar"/>
-                      </form> 
-                    </div> */}
-
-                    {/*<div>            
-                      <table className="pure-table">
-                        <thead>
-                          <tr>
-                            <th>Nome</th>
-                            <th>email</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {
-                            this.state.authorList.map((author) => {                            
-                              return(
-                                <tr key={author.objectId}>
-                                  <td>{author.name}</td>
-                                  <td>{author.email}</td>
-                                </tr>
-                              )
-                            })
-                          }
-                        </tbody>
-                      </table> 
-                    </div>             */}
-
                   </div>
                 </div> 
               </div>
