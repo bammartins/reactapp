@@ -1,48 +1,38 @@
 import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
-// import * as api from './service/RestApi.js';
-// import Input from './components/forms/input.js';
-// import Submit from './components/forms/submit.js';
-import {RegisterForm, ListTable} from './modules/form.js'
+import RegisterForm from './modules/form.js';
+import ListTable from "./modules/list.js"
+import MenuNav from "./components/nav/routing.js"
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
 
-class App extends Component {
-  constructor(props){
-    super(props);
-  }
+
+class App extends Component {  
 
   render() {
     const componentHTML =      
-          <div id="layout">   
-              <a href="#menu" id="menuLink" className="menu-link">
-                  <span></span>
-              </a>
-
-              <div id="menu">
-                  <div className="pure-menu">
-                      <a className="pure-menu-heading" href="javascript:void(0)">React</a>
-
-                      <ul className="pure-menu-list">
-                          <li className="pure-menu-item"><a href="javascript:void(0)" className="pure-menu-link">Home</a></li>
-                          <li className="pure-menu-item"><a href="javascript:void(0)" className="pure-menu-link">Autores</a></li>
-                          <li className="pure-menu-item"><a href="javascript:void(0)" className="pure-menu-link">Livros</a></li>
-                      </ul>
-                  </div>
-              </div>
-              <div className="content">
-                <div id="main">
-                  <div className="header">
-                    <h1>Cadastro de Autores</h1>
-                  </div>
-                  <div className="content" id="content">
-
-                    <RegisterForm/>
-                    <ListTable/>
-
-                  </div>
-                </div> 
-              </div>
-          </div>;
+          <Router>
+            <div id="layout">
+                <MenuNav/>
+                <div className="content">
+                  <div id="main">
+                    <div className="header">
+                        <h1>Cadastro de Autores</h1>
+                        <div className="content" id="content">
+                            <Switch>
+                              <Route path="/cadastro" component={RegisterForm}/>
+                              <Route path="/lista" component={ListTable}/>
+                            </Switch>
+                        </div>
+                    </div>
+                  </div> 
+                </div>
+            </div>
+          </Router>;
     return (
       componentHTML
     );

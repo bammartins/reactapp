@@ -3,7 +3,7 @@ import * as api from '../service/RestApi.js';
 import Input from '../components/forms/input.js';
 import Submit from '../components/forms/submit.js';
 
-export class RegisterForm extends Component{
+export default class RegisterForm extends Component{
     constructor(props){
         super(props);
 
@@ -23,8 +23,7 @@ export class RegisterForm extends Component{
         e.preventDefault();
         const setResponse = await api.setAuthor(this.state.nome, this.state.email, this.state.pass);
             if(setResponse.status === 201){
-                // let a = new ListTable();
-                // a.getAll(); 
+                window.location.pathname = "/lista";
             }
     }
 
@@ -71,60 +70,8 @@ export class RegisterForm extends Component{
     }
 }
 
-export class ListTable extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            authorList : []
-        }
 
-        this.getAll = this.getAll.bind(this);
 
-        this.getAll();
-    }
-    
-   async getAll (){
-        const getAllRegister = await api.getAuthor();
-        const arr = [];
-        let result;
-
-        if (getAllRegister.status === 200){
-            result = getAllRegister.data.results
-            console.log(result);
-            result.forEach((item) => {
-                arr.push(item)
-        });
-            this.setState({authorList : arr});
-        }
-    }
-
-    render(){
-        return(
-            <div>            
-                <table className="pure-table">
-                <thead>
-                    <tr>
-                    <th>Nome</th>
-                    <th>email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                    this.state.authorList.map((author) => {                            
-                        return(
-                        <tr key={author.objectId}>
-                            <td>{author.name}</td>
-                            <td>{author.email}</td>
-                        </tr>
-                        )
-                    })
-                    }
-                </tbody>
-                </table> 
-            </div>
-        );
-    }
-}
 
 
                  
